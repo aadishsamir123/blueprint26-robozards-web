@@ -326,6 +326,11 @@ strong,
   background: #000;
 }
 
+.gallery-modal-image.hidden,
+.gallery-modal-video.hidden {
+  display: none;
+}
+
 .gallery-modal-caption {
   text-align: center;
   margin: 0.7rem 0 0;
