@@ -201,21 +201,24 @@ strong,
 
 .gallery-grid {
   margin-top: 0.8rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.8rem;
+  columns: 260px;
+  column-gap: 0.8rem;
 }
 
 .gallery-item {
+  break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 0.8rem;
   border: 1px solid #2f2f2f;
   background: #080808;
   padding: 0.5rem;
+  cursor: pointer;
 }
 
 .gallery-item img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
   display: block;
   border: 1px solid #1e1e1e;
 }
@@ -224,6 +227,69 @@ strong,
   margin: 0.55rem 0 0;
   color: var(--muted);
   font-size: 0.92rem;
+}
+
+.gallery-item:focus-visible {
+  outline: 2px solid var(--line-bright);
+  outline-offset: 2px;
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.84);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.gallery-modal.hidden {
+  display: none;
+}
+
+.gallery-modal-dialog {
+  width: min(96vw, 1000px);
+  max-height: 95vh;
+  overflow: auto;
+  border: 2px solid var(--line);
+  background: #060606;
+  padding: 0.9rem;
+}
+
+.gallery-modal-close {
+  margin-left: auto;
+  display: block;
+  border: 2px solid #3a3a3a;
+  color: var(--text);
+  background: transparent;
+  font-family: "Minecraft", monospace;
+  font-size: 0.62rem;
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+}
+
+.gallery-modal-close:hover,
+.gallery-modal-close:focus-visible {
+  color: var(--line-bright);
+  border-color: var(--line-bright);
+  outline: none;
+}
+
+.gallery-modal-image {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0.7rem auto 0;
+  border: 1px solid #1e1e1e;
+}
+
+.gallery-modal-caption {
+  text-align: center;
+  margin: 0.7rem 0 0;
+  color: var(--muted);
 }
 
 .link-row {
