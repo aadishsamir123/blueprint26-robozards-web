@@ -1,0 +1,25 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/gallery.html",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/team.html",
+      "destination": "/team",
+      "permanent": true
+    },
+    {
+      "source": "/code.html",
+      "destination": "/code",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
