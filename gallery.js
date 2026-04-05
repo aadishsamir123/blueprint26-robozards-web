@@ -89,6 +89,10 @@ function getMediaType(fileName) {
   return videoExtensions.has(extension) ? "video" : "image";
 }
 
+function getDisplayCaption(caption) {
+  return typeof caption === "string" ? caption.trim() : "";
+}
+
 function openGalleryModal(mediaPath, caption, mediaType) {
   if (
     !galleryModal ||
@@ -168,6 +172,7 @@ function renderGallerySections(container, sections) {
     images.forEach(({ file, caption }) => {
       const mediaType = getMediaType(file);
       const mediaPath = buildImagePath(file);
+      const displayCaption = getDisplayCaption(caption);
 
       const cardEl = document.createElement("figure");
       cardEl.className = "gallery-item";
@@ -178,7 +183,7 @@ function renderGallerySections(container, sections) {
       cardEl.setAttribute("role", "button");
       cardEl.setAttribute(
         "aria-label",
-        `Open ${mediaType}: ${caption || file}`,
+        `Open ${mediaType}: ${displayCaption || file}`,
       );
 
       let previewEl;
@@ -189,19 +194,19 @@ function renderGallerySections(container, sections) {
         videoEl.preload = "metadata";
         videoEl.muted = true;
         videoEl.playsInline = true;
-        videoEl.setAttribute("aria-label", caption || file);
+        videoEl.setAttribute("aria-label", displayCaption || file);
         previewEl = videoEl;
       } else {
         const imgEl = document.createElement("img");
         imgEl.src = mediaPath;
-        imgEl.alt = caption || file;
+        imgEl.alt = displayCaption || "Gallery image";
         imgEl.loading = "lazy";
         previewEl = imgEl;
       }
 
       const captionEl = document.createElement("figcaption");
       captionEl.className = "gallery-caption";
-      captionEl.textContent = caption || file;
+      captionEl.textContent = displayCaption;
 
       cardEl.appendChild(previewEl);
 
@@ -213,16 +218,18 @@ function renderGallerySections(container, sections) {
         cardEl.appendChild(badgeEl);
       }
 
-      cardEl.appendChild(captionEl);
+      if (displayCaption) {
+        cardEl.appendChild(captionEl);
+      }
 
       cardEl.addEventListener("click", () => {
-        openGalleryModal(mediaPath, caption || file, mediaType);
+        openGalleryModal(mediaPath, displayCaption, mediaType);
       });
 
       cardEl.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          openGalleryModal(mediaPath, caption || file, mediaType);
+          openGalleryModal(mediaPath, displayCaption, mediaType);
         }
       });
 
